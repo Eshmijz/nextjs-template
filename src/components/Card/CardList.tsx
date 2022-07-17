@@ -3,16 +3,21 @@ import { Card } from './Card'
 import { FlagIcon } from "@heroicons/react/solid"
 import { HeartIcon } from '@heroicons/react/outline';
 import { Post } from "@/types/Post"
+import { useRouter } from 'next/router'
 
 interface CardListProps {
   items: Post[]
 }
 
 export const CardList: React.FC<CardListProps> = ({ items }) => {
+  const router = useRouter()
+  const handleClick = (id: string) => {
+    router.push(`/${id}`)
+  }
   return (
     <div className="bg-gray-200 rounded-2xl w-[90%] columns-3xs gap-4 p-4">
       {items.map(item => (
-        <Card key={item.id}>
+        <Card key={item.id} onClick={() => handleClick(item.id)}>
           <div className="flex flex-col pr-10 p-4 relative w-full">
             <button className="absolute top-16 right-2 hidden group-hover:flex">
               <FlagIcon className="h-9 w-9 p-2 text-gray-400" />
